@@ -1,5 +1,7 @@
 package com.example.inclass07;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -33,6 +37,35 @@ import okhttp3.ResponseBody;
 
 // hello
 public class Login  extends Fragment  {
+
+    private class Authtoken{
+        private boolean auth;
+        private String token;
+
+        public boolean getAuth() {
+            return auth;
+        }
+
+        public void setAuth(boolean auth) {
+            this.auth = auth;
+        }
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
+
+        @Override
+        public String toString() {
+            return "Auth{" +
+                    "auth='" + auth + '\'' +
+                    ", token='" + token + '\'' +
+                    '}';
+        }
+    }
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -133,8 +166,21 @@ public class Login  extends Fragment  {
                                                  public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                                                     if(response.isSuccessful()){
                                                         ResponseBody responseBody =response.body();
-                                                        Log.d("onresponse", "onResponse: " + responseBody.string());
+                                                        //Log.d("onresponse", "onResponse: " + responseBody.string());
                                                         System.out.println("success");
+                                                        Context context = getActivity();
+                                                        SharedPreferences sharedPref = context.getSharedPreferences(
+                                                                "login_data", Context.MODE_PRIVATE);
+
+                                                        // gson parsing
+                                                        Gson gson = new Gson();
+                                                        Authtoken auth =gson.fromJson(responseBody.string(), Authtoken.class);
+
+
+                                                        //store token
+                                                        SharedPreferences.Editor editor = sharedPref.edit();
+                                                        editor.putString("login_data", auth.getToken());
+                                                        editor.apply();
                                                     }
                                                     else{
                                                         Log.d("not success", "onResponse: " + response.body());
@@ -142,12 +188,14 @@ public class Login  extends Fragment  {
 
 
                                                  }
+
                                              });
 
 
 
 
                                          }
+
                                      }
         );
 
