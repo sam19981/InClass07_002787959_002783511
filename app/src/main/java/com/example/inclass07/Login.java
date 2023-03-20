@@ -168,19 +168,24 @@ public class Login  extends Fragment  {
                                                         ResponseBody responseBody =response.body();
                                                         //Log.d("onresponse", "onResponse: " + responseBody.string());
                                                         System.out.println("success");
-                                                        Context context = getActivity();
-                                                        SharedPreferences sharedPref = context.getSharedPreferences(
-                                                                "login_data", Context.MODE_PRIVATE);
+
 
                                                         // gson parsing
                                                         Gson gson = new Gson();
                                                         Authtoken auth =gson.fromJson(responseBody.string(), Authtoken.class);
 
+                                                        Log.d("gson", "token: " + auth.getToken());
+
 
                                                         //store token
+                                                        //SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                                                        SharedPreferences sharedPref = getActivity().getSharedPreferences(
+                                                               "data", Context.MODE_PRIVATE);
                                                         SharedPreferences.Editor editor = sharedPref.edit();
-                                                        editor.putString("login_data", auth.getToken());
+                                                        editor.putString(getString(R.string.login_data), auth.getToken());
                                                         editor.apply();
+                                                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.rootlayout, new NotesDisplay(), "logintonotesdisplay").commit();
+                                                        Log.d("login data", "onResponse: " + R.string.login_data);
                                                     }
                                                     else{
                                                         Log.d("not success", "onResponse: " + response.body());

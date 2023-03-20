@@ -1,10 +1,13 @@
 package com.example.inclass07;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +70,11 @@ public class NotesDisplay extends Fragment {
         View view = inflater.inflate(R.layout.fragment_notes_display, container, false);
 
         mRecyclerView = view.findViewById(R.id.recyclerViewId);
+        //SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getActivity().getSharedPreferences(
+                "data", Context.MODE_PRIVATE);
+        String logintoken = sharedPref.getString(getString(R.string.login_data), "empty");
+        Log.d("token", "logintoken: " + logintoken);
 
 
         return view;
