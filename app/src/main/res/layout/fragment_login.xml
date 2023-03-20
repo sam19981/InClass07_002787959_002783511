@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Login" >
-    <?xml version="1.0" encoding="utf-8"?>
+
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/ltextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
@@ -19,58 +19,58 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/LEmailId"
+            android:id="@+id/lEmailId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="45dp"
             android:ems="10"
             android:inputType="textEmailAddress"
-            app:layout_constraintBottom_toBottomOf="@+id/textView2"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="@+id/textView2"
+            app:layout_constraintBottom_toBottomOf="@+id/ltextView2"
+            app:layout_constraintStart_toEndOf="@+id/ltextView2"
+            app:layout_constraintTop_toTopOf="@+id/ltextView2"
             app:layout_constraintVertical_bias="0.423" />
 
         <EditText
-            android:id="@+id/LPasswordId"
+            android:id="@+id/lPasswordId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword"
-            app:layout_constraintBottom_toBottomOf="@+id/textView3"
-            app:layout_constraintEnd_toEndOf="@+id/LEmailId"
+            app:layout_constraintBottom_toBottomOf="@+id/ltextView3"
+            app:layout_constraintEnd_toEndOf="@+id/lEmailId"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/LEmailId"
-            app:layout_constraintTop_toTopOf="@+id/textView3" />
+            app:layout_constraintStart_toStartOf="@+id/lEmailId"
+            app:layout_constraintTop_toTopOf="@+id/ltextView3" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/ltextView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:layout_marginTop="40dp"
             android:text="@string/Email_text"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintTop_toBottomOf="@+id/ltextView" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/ltextView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="60dp"
             android:text="@string/password_text"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintStart_toStartOf="@+id/ltextView2"
+            app:layout_constraintTop_toBottomOf="@+id/ltextView2" />
 
         <Button
-            android:id="@+id/LogId"
+            android:id="@+id/registerId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:text="@string/Login_text"
-            app:layout_constraintEnd_toEndOf="@+id/LPasswordId"
-            app:layout_constraintStart_toStartOf="@+id/LPasswordId"
-            app:layout_constraintTop_toBottomOf="@+id/LPasswordId" />
+            app:layout_constraintEnd_toEndOf="@+id/lPasswordId"
+            app:layout_constraintStart_toStartOf="@+id/lPasswordId"
+            app:layout_constraintTop_toBottomOf="@+id/lPasswordId" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -72,9 +72,9 @@ public class Login extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
-        email = view.findViewById(R.id.LEmailId);
-        password = view.findViewById(R.id.LPasswordId);
-        login_btn = view.findViewById(R.id.LogId);
+        email = view.findViewById(R.id.lEmailId);
+        password = view.findViewById(R.id.lPasswordId);
+        login_btn = view.findViewById(R.id.registerId);
 
         login_btn.setOnClickListener(new View.OnClickListener() {
                                          @Override
