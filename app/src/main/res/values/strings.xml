@@ -8,4 +8,5 @@
     <string name="Register_text">Register</string>
     <string name="retype_Password">retype_password</string>
     <string name="name_text">Name</string>
+    <string name="Notes_text">Notes</string>
 </resources>
