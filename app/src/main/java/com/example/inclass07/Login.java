@@ -2,13 +2,28 @@ package com.example.inclass07;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.io.IOException;
+import java.util.Arrays;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,13 +32,16 @@ import android.widget.EditText;
  */
 
 // hello
-public class Login extends Fragment {
+public class Login  extends Fragment  {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private String BASE_URL = "http://ec2-54-164-201-39.compute-1.amazonaws.com:3000/api/auth";
+
+    private OkHttpClient client = new OkHttpClient();
     private EditText email;
 
     private EditText password;
@@ -70,7 +88,7 @@ public class Login extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)  {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
@@ -80,7 +98,44 @@ public class Login extends Fragment {
 
         login_btn.setOnClickListener(new View.OnClickListener() {
                                          @Override
-                                         public void onClick(View v) {
+                                         public void onClick(View v)  {
+                                             RequestBody formBody = new FormBody.Builder()
+                                                     .add("email", email.getText().toString())
+                                                     .add("password", password.getText().toString())
+                                                     .build();
+                                             //Log.d("print", "onClick: " + email.getText().toString() + " " + password.getText().toString());
+
+                                             Request request = new Request.Builder()
+                                                     .url(BASE_URL + "/login")
+                                                     .post(formBody)
+                                                     .build();
+
+                                             client.newCall(request).enqueue(new Callback() {
+                                                 @Override
+                                                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                                                     e.printStackTrace();
+                                                     Log.d("fail", "onFailure: " + "failiure");
+
+
+                                                 }
+
+                                                 @Override
+                                                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                                    if(response.isSuccessful()){
+                                                        ResponseBody responseBody =response.body();
+                                                        Log.d("onresponse", "onResponse: " + responseBody.string());
+                                                        System.out.println("success");
+                                                    }
+                                                    else{
+                                                        Log.d("not success", "onResponse: " + response.body());
+                                                    }
+
+
+                                                 }
+                                             });
+
+
+
 
                                          }
                                      }
