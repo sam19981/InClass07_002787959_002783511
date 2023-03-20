@@ -72,5 +72,15 @@
             app:layout_constraintStart_toStartOf="@+id/lPasswordId"
             app:layout_constraintTop_toBottomOf="@+id/lPasswordId" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/registerbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="REGISTER"
+            app:layout_constraintEnd_toEndOf="@+id/registerId"
+            app:layout_constraintStart_toStartOf="@+id/registerId"
+            app:layout_constraintTop_toBottomOf="@+id/registerId" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -45,6 +45,7 @@ public class Login  extends Fragment  {
     private EditText email;
 
     private EditText password;
+    private Button regbtn;
 
     private Button login_btn;
 
@@ -92,9 +93,18 @@ public class Login  extends Fragment  {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
+        regbtn = view.findViewById(R.id.registerbtn);
+
         email = view.findViewById(R.id.lEmailId);
         password = view.findViewById(R.id.lPasswordId);
         login_btn = view.findViewById(R.id.registerId);
+
+        regbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.rootlayout,new signUp(),"logintosignup").commit();
+            }
+        });
 
         login_btn.setOnClickListener(new View.OnClickListener() {
                                          @Override
