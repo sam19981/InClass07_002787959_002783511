@@ -11,6 +11,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="6dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="6dp"
         android:layout_weight="2"
         android:orientation="vertical">
@@ -33,6 +39,20 @@
             android:textColor="@color/purple_500"
             android:textSize="18sp"
             android:textStyle="bold" />
+
+
     </LinearLayout>
+
+        <Button
+            android:id="@+id/deletebtn"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:layout_weight="2"
+            android:text="delete"
+            android:textSize="4sp" />
+
+
+    </LinearLayout>
+
 
 </androidx.cardview.widget.CardView>
