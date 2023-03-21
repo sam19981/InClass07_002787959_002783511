@@ -98,8 +98,9 @@ public class CreateNote extends Fragment {
                         .add("text", note.getText().toString())
                         .build();
 
-                SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-                Log.d("token string", "onClick: " + sharedPref.getString(getString(R.string.login_data),"empty"));
+                SharedPreferences sharedPref = getActivity().getSharedPreferences("data",Context.MODE_PRIVATE);
+                String t = sharedPref.getString(getString(R.string.login_data),"empty");
+                Log.d("token string", "onClick: " + t);
 
                 Request request = new Request.Builder()
                         .url(BASE_URL + "/post")
@@ -119,7 +120,7 @@ public class CreateNote extends Fragment {
                         if(response.isSuccessful()){
                             ResponseBody responseBody =response.body();
                             Log.d("post msg", "onResponse: " + responseBody.string());
-                            Toast.makeText(getContext(), "Note created Successfully", Toast.LENGTH_SHORT).show();
+
                         }
                         else{
                             Log.d("post msg unsuccess", "onResponse: " + response.body().string());
