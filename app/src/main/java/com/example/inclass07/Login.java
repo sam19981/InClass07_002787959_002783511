@@ -77,6 +77,8 @@ public class Login  extends Fragment  {
     private OkHttpClient client = new OkHttpClient();
     private EditText email;
 
+
+
     private EditText password;
     private Button regbtn;
 
@@ -127,6 +129,7 @@ public class Login  extends Fragment  {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         regbtn = view.findViewById(R.id.registerbtn);
+
 
         email = view.findViewById(R.id.lEmailId);
         password = view.findViewById(R.id.lPasswordId);
@@ -203,6 +206,8 @@ public class Login  extends Fragment  {
 
                                      }
         );
+
+
 
         return view;
     }
