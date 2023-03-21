@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.inclass07.DataModel.Notes;
@@ -31,6 +32,7 @@ public class NotesDisplay extends Fragment implements NetworkResponseListner {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private Button addBtn;
 
     private RecyclerView mRecyclerView;
     private NotesAdapter mAdapter;
@@ -74,8 +76,12 @@ public class NotesDisplay extends Fragment implements NetworkResponseListner {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_notes_display, container, false);
+
+        addBtn = view.findViewById(R.id.addbtn);
 
         mRecyclerView = view.findViewById(R.id.recyclerViewId);
         //SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
@@ -86,6 +92,14 @@ public class NotesDisplay extends Fragment implements NetworkResponseListner {
 
         LoadDataAsync loadDataAsync = new LoadDataAsync(logintoken,this);
         loadDataAsync.execute();
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.rootlayout, new CreateNote(), "displaytocreate").commit();
+            }
+        });
+
+
         return view;
     }
 
