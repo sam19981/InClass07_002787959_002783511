@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -90,6 +91,15 @@ public class CreateNote extends Fragment {
         note = view.findViewById(R.id.addnote);
         notebtn = view.findViewById(R.id.addnotebtn);
         backBtn = view.findViewById(R.id.backbtn);
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+
+                getActivity().getSupportFragmentManager().beginTransaction().add(R.id.rootlayout,new Login(), "login").commit();
+
+            }
+        });
 
         notebtn.setOnClickListener(new View.OnClickListener() {
             @Override

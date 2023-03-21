@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -89,6 +90,17 @@ public class NotesDisplay extends Fragment implements NetworkResponseListner {
                 "data", Context.MODE_PRIVATE);
         String logintoken = sharedPref.getString(getString(R.string.login_data), "empty");
         Log.d("token", "logintoken: " + logintoken);
+
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+
+                getActivity().getSupportFragmentManager().beginTransaction().add(R.id.rootlayout,new Login(), "login").commit();
+
+            }
+        });
+
 
         LoadDataAsync loadDataAsync = new LoadDataAsync(logintoken,this);
         loadDataAsync.execute();

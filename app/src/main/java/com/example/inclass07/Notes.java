@@ -2,6 +2,7 @@ package com.example.inclass07;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -71,6 +72,15 @@ public class Notes extends Fragment {
 
         noteId.setText(mParam1);
         content.setText(mParam2);
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+
+                getActivity().getSupportFragmentManager().beginTransaction().add(R.id.rootlayout,new Login(), "login").commit();
+
+            }
+        });
 
         return view;
     }
