@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +24,9 @@ public class Notes extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private TextView noteId;
+    private TextView content;
 
     public Notes() {
         // Required empty public constructor
@@ -59,6 +63,15 @@ public class Notes extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notes, container, false);
+        View view =  inflater.inflate(R.layout.fragment_notes, container, false);
+
+
+        noteId = view.findViewById(R.id.DnotesId);
+        content = view.findViewById(R.id.noteTextId);
+
+        noteId.setText(mParam1);
+        content.setText(mParam2);
+
+        return view;
     }
 }

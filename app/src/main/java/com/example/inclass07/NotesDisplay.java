@@ -5,19 +5,27 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.example.inclass07.DataModel.Notes;
+import com.example.inclass07.LoadData.LoadDataAsync;
+import com.example.inclass07.LoadData.NetworkResponseListner;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link NotesDisplay#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NotesDisplay extends Fragment {
+public class NotesDisplay extends Fragment implements NetworkResponseListner {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,7 +84,23 @@ public class NotesDisplay extends Fragment {
         String logintoken = sharedPref.getString(getString(R.string.login_data), "empty");
         Log.d("token", "logintoken: " + logintoken);
 
-
+        LoadDataAsync loadDataAsync = new LoadDataAsync(logintoken,this);
+        loadDataAsync.execute();
         return view;
+    }
+
+
+    @Override
+    public void SuccessData(ArrayList<Notes.Note> notes) {
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new NotesAdapter(notes);
+        mRecyclerView.setAdapter(mAdapter);
+
+    }
+
+    @Override
+    public void FailedData() {
+        Toast.makeText(getContext(), "Could not load Data", Toast.LENGTH_SHORT).show();
     }
 }

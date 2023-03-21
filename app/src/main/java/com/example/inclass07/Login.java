@@ -146,7 +146,6 @@ public class Login  extends Fragment  {
                                                      .add("email", email.getText().toString())
                                                      .add("password", password.getText().toString())
                                                      .build();
-                                             //Log.d("print", "onClick: " + email.getText().toString() + " " + password.getText().toString());
 
                                              Request request = new Request.Builder()
                                                      .url(BASE_URL + "/login")

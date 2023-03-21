@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Notes {
 
-    class Note
+    public static class Note
     {
         String _id;
         String text;
