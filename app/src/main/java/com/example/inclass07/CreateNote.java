@@ -101,7 +101,7 @@ public class CreateNote extends Fragment {
             @Override
             public void handleOnBackPressed() {
 
-                getActivity().getSupportFragmentManager().beginTransaction().add(R.id.rootlayout,new Login(), "login").commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.rootlayout,new NotesDisplay(), "login").commit();
 
             }
         });
