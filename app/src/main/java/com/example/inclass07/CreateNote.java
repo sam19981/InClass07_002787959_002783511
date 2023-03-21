@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +51,9 @@ public class CreateNote extends Fragment {
     private String mParam2;
 
     private String BASE_URL = "http://ec2-54-164-201-39.compute-1.amazonaws.com:3000/api/note";
+
+
+    private Handler handler = new Handler(Looper.getMainLooper());
 
 
     public CreateNote() {
@@ -98,8 +103,9 @@ public class CreateNote extends Fragment {
                         .add("text", note.getText().toString())
                         .build();
 
-                SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-                Log.d("token string", "onClick: " + sharedPref.getString(getString(R.string.login_data),"empty"));
+                SharedPreferences sharedPref = getActivity().getSharedPreferences("data",Context.MODE_PRIVATE);
+                String t = sharedPref.getString(getString(R.string.login_data),"empty");
+                Log.d("token string", "onClick: " + t);
 
                 Request request = new Request.Builder()
                         .url(BASE_URL + "/post")
@@ -119,8 +125,15 @@ public class CreateNote extends Fragment {
                         if(response.isSuccessful()){
                             ResponseBody responseBody =response.body();
                             Log.d("post msg", "onResponse: " + responseBody.string());
-                            Toast.makeText(getContext(), "Note created Successfully", Toast.LENGTH_SHORT).show();
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getActivity(),"note added successfully",Toast.LENGTH_SHORT);
+                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.rootlayout, new NotesDisplay(), "newnotetodisplaynote").commit();
+                                    }});
+
                         }
+
                         else{
                             Log.d("post msg unsuccess", "onResponse: " + response.body().string());
 
@@ -137,6 +150,12 @@ public class CreateNote extends Fragment {
             @Override
             public void onClick(View view) {
                 // go back to list of notes
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.rootlayout, new NotesDisplay(), "newnotetodisplaynote").commit();
+                    }});
+
             }
         });
 
