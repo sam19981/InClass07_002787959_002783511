@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +51,9 @@ public class CreateNote extends Fragment {
     private String mParam2;
 
     private String BASE_URL = "http://ec2-54-164-201-39.compute-1.amazonaws.com:3000/api/note";
+
+
+    private Handler handler = new Handler(Looper.getMainLooper());
 
 
     public CreateNote() {
@@ -120,8 +125,15 @@ public class CreateNote extends Fragment {
                         if(response.isSuccessful()){
                             ResponseBody responseBody =response.body();
                             Log.d("post msg", "onResponse: " + responseBody.string());
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getActivity(),"note added successfully",Toast.LENGTH_SHORT);
+                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.rootlayout, new NotesDisplay(), "newnotetodisplaynote").commit();
+                                    }});
 
                         }
+
                         else{
                             Log.d("post msg unsuccess", "onResponse: " + response.body().string());
 
@@ -138,6 +150,12 @@ public class CreateNote extends Fragment {
             @Override
             public void onClick(View view) {
                 // go back to list of notes
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.rootlayout, new NotesDisplay(), "newnotetodisplaynote").commit();
+                    }});
+
             }
         });
 
