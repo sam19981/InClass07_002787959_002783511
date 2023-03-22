@@ -1,7 +1,5 @@
 package com.example.inclass07;
 
-import android.app.Activity;
-import android.app.AppComponentFactory;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -13,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

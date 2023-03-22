@@ -11,6 +11,10 @@
     <string name="Notes_text">Notes</string>
     <string name="login_data">nothing</string>
     <string name="logOut">logout</string>
+    <string name="Profile_text">Profile</string>
+    <string name="Back_text" />
+    <string name="back">back</string>
+    <string name="back_text">back</string>
 
 
 </resources>

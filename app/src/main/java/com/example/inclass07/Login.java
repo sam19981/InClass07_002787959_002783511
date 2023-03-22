@@ -136,7 +136,6 @@ public class Login  extends Fragment  {
 
         regbtn = view.findViewById(R.id.registerbtn);
 
-
         email = view.findViewById(R.id.lEmailId);
         password = view.findViewById(R.id.lPasswordId);
         login_btn = view.findViewById(R.id.registerId);
