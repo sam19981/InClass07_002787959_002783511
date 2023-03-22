@@ -34,6 +34,8 @@ public class NotesDisplay extends Fragment implements NetworkResponseListner {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private Button addBtn;
+
+    private Button profileBtn;
     private  Button logOut;
     private RecyclerView mRecyclerView;
     private NotesAdapter mAdapter;
@@ -85,6 +87,7 @@ public class NotesDisplay extends Fragment implements NetworkResponseListner {
         addBtn = view.findViewById(R.id.addbtn);
 
         logOut = view.findViewById(R.id.logoutId);
+        profileBtn = view.findViewById(R.id.profilebtn);
 
         mRecyclerView = view.findViewById(R.id.recyclerViewId);
         //SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
@@ -119,6 +122,13 @@ public class NotesDisplay extends Fragment implements NetworkResponseListner {
             @Override
             public void onClick(View view) {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.rootlayout, new CreateNote(), "displaytocreate").commit();
+            }
+        });
+
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.rootlayout, new ProfileFragment(), "displaytoprofile").commit();
             }
         });
 
