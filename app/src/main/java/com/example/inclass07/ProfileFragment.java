@@ -87,7 +87,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private class Me{
+    public class Me{
         private String _id;
         private String name;
         private String email;
