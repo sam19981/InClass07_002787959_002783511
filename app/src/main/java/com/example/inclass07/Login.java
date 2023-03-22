@@ -5,14 +5,18 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -71,6 +75,8 @@ public class Login  extends Fragment  {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private Handler handler = new Handler(Looper.getMainLooper());
 
     private String BASE_URL = "http://ec2-54-164-201-39.compute-1.amazonaws.com:3000/api/auth";
 
@@ -143,8 +149,22 @@ public class Login  extends Fragment  {
         });
 
         login_btn.setOnClickListener(new View.OnClickListener() {
+
+
+
                                          @Override
-                                         public void onClick(View v)  {
+                                         public void onClick(View v) {
+
+                                             if(email.length() == 0){
+                                                 Toast.makeText(getContext(),"email cannot be empty",Toast.LENGTH_SHORT).show();
+                                             }
+                                             if(password.length() == 0){
+                                                 Toast.makeText(getContext(),"password cannot be empty",Toast.LENGTH_SHORT).show();
+                                             }
+
+                                             else{
+
+
                                              RequestBody formBody = new FormBody.Builder()
                                                      .add("email", email.getText().toString())
                                                      .add("password", password.getText().toString())
@@ -166,32 +186,38 @@ public class Login  extends Fragment  {
 
                                                  @Override
                                                  public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                                                    if(response.isSuccessful()){
-                                                        ResponseBody responseBody =response.body();
-                                                        //Log.d("onresponse", "onResponse: " + responseBody.string());
-                                                        System.out.println("success");
+                                                     if (response.isSuccessful()) {
+                                                         ResponseBody responseBody = response.body();
+                                                         //Log.d("onresponse", "onResponse: " + responseBody.string());
+                                                         System.out.println("success");
 
 
-                                                        // gson parsing
-                                                        Gson gson = new Gson();
-                                                        Authtoken auth =gson.fromJson(responseBody.string(), Authtoken.class);
+                                                         // gson parsing
+                                                         Gson gson = new Gson();
+                                                         Authtoken auth = gson.fromJson(responseBody.string(), Authtoken.class);
 
-                                                        Log.d("gson", "token: " + auth.getToken());
+                                                         Log.d("gson", "token: " + auth.getToken());
 
 
-                                                        //store token
-                                                        //SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-                                                        SharedPreferences sharedPref = getActivity().getSharedPreferences(
-                                                               "data", Context.MODE_PRIVATE);
-                                                        SharedPreferences.Editor editor = sharedPref.edit();
-                                                        editor.putString(getString(R.string.login_data), auth.getToken());
-                                                        editor.apply();
-                                                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.rootlayout, new NotesDisplay(), "logintonotesdisplay").commit();
-                                                        Log.d("login data", "onResponse: " + R.string.login_data);
-                                                    }
-                                                    else{
-                                                        Log.d("not success", "onResponse: " + response.body());
-                                                    }
+                                                         //store token
+                                                         //SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                                                         SharedPreferences sharedPref = getActivity().getSharedPreferences(
+                                                                 "data", Context.MODE_PRIVATE);
+                                                         SharedPreferences.Editor editor = sharedPref.edit();
+                                                         editor.putString(getString(R.string.login_data), auth.getToken());
+                                                         editor.apply();
+                                                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.rootlayout, new NotesDisplay(), "logintonotesdisplay").commit();
+                                                         Log.d("login data", "onResponse: " + R.string.login_data);
+                                                     } else {
+                                                         Log.d("not success", "onResponse: " + response.body());
+                                                         handler.post(new Runnable() {
+                                                             @Override
+                                                             public void run() {
+                                                                 Toast.makeText(getContext(), "invalid credentials",Toast.LENGTH_SHORT).show();
+
+                                                             }});
+
+                                                     }
 
 
                                                  }
@@ -199,8 +225,7 @@ public class Login  extends Fragment  {
                                              });
 
 
-
-
+                                         }
                                          }
 
                                      }
