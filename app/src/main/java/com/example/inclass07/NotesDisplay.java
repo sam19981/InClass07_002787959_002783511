@@ -34,7 +34,7 @@ public class NotesDisplay extends Fragment implements NetworkResponseListner {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private Button addBtn;
-
+    private  Button logOut;
     private RecyclerView mRecyclerView;
     private NotesAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -84,6 +84,8 @@ public class NotesDisplay extends Fragment implements NetworkResponseListner {
 
         addBtn = view.findViewById(R.id.addbtn);
 
+        logOut = view.findViewById(R.id.logoutId);
+
         mRecyclerView = view.findViewById(R.id.recyclerViewId);
         //SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences sharedPref = getActivity().getSharedPreferences(
@@ -92,12 +94,21 @@ public class NotesDisplay extends Fragment implements NetworkResponseListner {
         Log.d("token", "logintoken: " + logintoken);
 
 
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences settings = getContext().getSharedPreferences("data", Context.MODE_PRIVATE);
+                settings.edit().clear().commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.rootlayout,new Login(), "login").commit();
+
+            }
+        });
+
         requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
 
                 getActivity().getSupportFragmentManager().beginTransaction().add(R.id.rootlayout,new NotesDisplay(), "login").commit();
-
             }
         });
 

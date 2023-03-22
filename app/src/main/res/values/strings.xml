@@ -10,6 +10,7 @@
     <string name="name_text">Name</string>
     <string name="Notes_text">Notes</string>
     <string name="login_data">nothing</string>
+    <string name="logOut">logout</string>
 
 
 </resources>
