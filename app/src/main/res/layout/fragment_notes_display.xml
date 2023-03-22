@@ -39,21 +39,17 @@
         android:id="@+id/logoutId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="@string/logOut"
-        app:layout_constraintBottom_toBottomOf="@+id/addbtn"
-        app:layout_constraintTop_toTopOf="@+id/addbtn"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="317dp" />
+        app:layout_constraintStart_toEndOf="@+id/profilebtn"
+        app:layout_constraintTop_toTopOf="@+id/profilebtn" />
 
     <Button
         android:id="@+id/profilebtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="23dp"
         android:text="PROFILE"
-        app:layout_constraintEnd_toStartOf="@+id/logoutId"
         app:layout_constraintStart_toEndOf="@+id/addbtn"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/addbtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

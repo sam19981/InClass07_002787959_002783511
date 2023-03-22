@@ -15,6 +15,7 @@
     <string name="Back_text" />
     <string name="back">back</string>
     <string name="back_text">back</string>
+    <string name="Name_val">Name</string>
 
 
 </resources>
